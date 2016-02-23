@@ -1,0 +1,16 @@
+[
+{
+  "modid": "DeepMagics",
+  "name": "The Deep Magics",
+  "description": "Explore the magic surrounding you. Discover and learn as much as you can.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Tombenpotter"],
+  "credits": "Lumaceon, for allowing me to use and destroy his Structure generation code. WayofTime and TehNut, for allowing me to use a lot of their utils methods.",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

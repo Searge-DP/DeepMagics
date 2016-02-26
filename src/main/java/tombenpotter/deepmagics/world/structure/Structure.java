@@ -1,4 +1,4 @@
-package tombenpotter.deepmagics.world;
+package tombenpotter.deepmagics.world.structure;
 
 import lombok.Getter;
 import net.minecraft.block.material.Material;
@@ -10,27 +10,28 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import tombenpotter.deepmagics.api.BlockStack;
 import tombenpotter.deepmagics.api.Constants;
-import tombenpotter.deepmagics.api.world.EnumGenerationType;
-import tombenpotter.deepmagics.api.world.IStructure;
-import tombenpotter.deepmagics.api.DMBlockPos;
-import tombenpotter.deepmagics.util.Utils;
+import tombenpotter.deepmagics.api.schematic.ISchematic;
+import tombenpotter.deepmagics.api.structure.EnumGenerationType;
+import tombenpotter.deepmagics.api.structure.IStructure;
+import tombenpotter.deepmagics.api.structure.IStructureTemplate;
 import tombenpotter.deepmagics.api.world.Area;
-import tombenpotter.deepmagics.api.schematic.Schematic;
+import tombenpotter.deepmagics.api.world.DMBlockPos;
+import tombenpotter.deepmagics.util.Utils;
 
 @Getter
 public class Structure implements IStructure {
 
     private DMBlockPos structurePos;
-    private StructureTemplate structureTemplate;
+    private IStructureTemplate structureTemplate;
     private EnumGenerationType enumGenerationType;
 
-    public Structure(DMBlockPos structurePos, StructureTemplate structureTemplate) {
+    public Structure(DMBlockPos structurePos, IStructureTemplate structureTemplate) {
         this.structurePos = structurePos;
         this.structureTemplate = structureTemplate;
         this.enumGenerationType = EnumGenerationType.NONE;
     }
 
-    public Structure(int xCoord, int zCoord, StructureTemplate structureTemplate) {
+    public Structure(int xCoord, int zCoord, IStructureTemplate structureTemplate) {
         this.structurePos = new DMBlockPos(xCoord, 0, zCoord);
         this.enumGenerationType = structureTemplate.getEnumGenerationType();
     }
@@ -41,7 +42,7 @@ public class Structure implements IStructure {
             this.structurePos = getEnumGenerationType().getStructurePos(world, structurePos);
         }
 
-        Schematic schematic = structureTemplate.getSchematic();
+        ISchematic schematic = structureTemplate.getSchematic();
         Area schematicArea = schematic.getAreaFromWorldCoordinates(structurePos);
 
         if (schematicArea.doAreasIntersect(new Area(chunkX << 4, 0, chunkZ << 4, (chunkX << 4) + 16, 255, (chunkZ << 4) + 16))) {

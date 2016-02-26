@@ -1,20 +1,31 @@
 package tombenpotter.deepmagics.registry;
 
+import lombok.Getter;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.discovery.ASMDataTable;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import tombenpotter.deepmagics.DeepMagics;
 import tombenpotter.deepmagics.api.Constants;
+import tombenpotter.deepmagics.items.ItemSchematicGenerator;
+import tombenpotter.deepmagics.proxy.ClientProxy;
 import tombenpotter.deepmagics.repack.tehnut.lib.annot.ModItem;
+import tombenpotter.deepmagics.util.IRegistry;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ModItems {
+public class ModItems implements IRegistry {
+
+    @Getter
+    private static ModItems instance = new ModItems();
 
     private static Map<Class<? extends Item>, String> classToName = new HashMap<Class<? extends Item>, String>();
 
-    public static void init() {
+    private ModItems() {
+    }
+
+    @Override
+    public void init() {
         for (ASMDataTable.ASMData data : DeepMagics.instance.getModItems()) {
             try {
                 Class<?> asmClass = Class.forName(data.getClassName());
@@ -31,7 +42,8 @@ public class ModItems {
         }
     }
 
-    public static void registerRenders() {
+    public void registerRenders() {
+        ClientProxy.registerItemModel(ItemSchematicGenerator.class, 0, Constants.Misc.BLOCKSTATE_TYPE_NORMAL);
     }
 
     public static Item getItem(String name) {

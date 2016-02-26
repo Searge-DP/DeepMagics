@@ -1,4 +1,4 @@
-package tombenpotter.deepmagics.api.schematic;
+package tombenpotter.deepmagics.world.schematic;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
@@ -10,6 +10,7 @@ import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.BlockPos;
+import tombenpotter.deepmagics.api.schematic.ISchematic;
 import tombenpotter.deepmagics.api.world.Area;
 
 import java.util.HashMap;

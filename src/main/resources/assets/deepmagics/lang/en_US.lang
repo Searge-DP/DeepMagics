@@ -1,2 +1,5 @@
 #Items
 item.DeepMagics.schematicGenerator.name=Schematic Generator
+
+#Creative Tab
+itemGroup.DeepMagics.creativeTab=The Deep Magics

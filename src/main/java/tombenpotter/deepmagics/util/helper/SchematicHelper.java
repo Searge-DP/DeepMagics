@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import tombenpotter.deepmagics.DeepMagics;
 import tombenpotter.deepmagics.api.Constants;
 import tombenpotter.deepmagics.api.DeepMagicsAPI;
-import tombenpotter.deepmagics.api.schematic.Schematic;
+import tombenpotter.deepmagics.world.schematic.Schematic;
 import tombenpotter.deepmagics.util.Utils;
 import tombenpotter.deepmagics.api.world.Area;
 
@@ -168,7 +168,7 @@ public class SchematicHelper {
         Block block;
         try {
             File newFile = new File(DeepMagics.getConfigDirectory(), "/modschematics");
-            newFile.mkdir();
+            newFile.mkdirs();
             newFile = new File(newFile, fileName + ".modschematic");
             FileOutputStream output = new FileOutputStream(newFile);
             NBTTagCompound nbt = new NBTTagCompound();

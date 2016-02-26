@@ -1,6 +1,0 @@
-{
-  "parent": "deepmagics:item/ItemModelBase",
-  "textures": {
-    "layer0": "deepmagics:items/ItemSchematicGenerator"
-  }
-}

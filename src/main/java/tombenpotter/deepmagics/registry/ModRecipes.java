@@ -1,11 +1,21 @@
 package tombenpotter.deepmagics.registry;
 
-public class ModRecipes {
+import lombok.Getter;
+import tombenpotter.deepmagics.util.IRegistry;
 
-    public static void init() {
+public class ModRecipes implements IRegistry{
+
+    @Getter
+    private static ModRecipes instance = new ModRecipes();
+
+    private ModRecipes() {
+    }
+
+    @Override
+    public void init() {
         registerCraftingRecipes();
     }
 
-    public static void registerCraftingRecipes() {
+    private void registerCraftingRecipes() {
     }
 }

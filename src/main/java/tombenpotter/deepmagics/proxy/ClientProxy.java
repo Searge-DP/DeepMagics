@@ -12,7 +12,6 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import tombenpotter.deepmagics.DeepMagics;
 import tombenpotter.deepmagics.api.Constants;
-import tombenpotter.deepmagics.items.ItemSchematicGenerator;
 import tombenpotter.deepmagics.registry.ModBlocks;
 import tombenpotter.deepmagics.registry.ModItems;
 import tombenpotter.deepmagics.repack.tehnut.lib.annot.Handler;
@@ -36,8 +35,6 @@ public class ClientProxy extends CommonProxy {
                 DeepMagics.instance.getLogger().error(String.format("Unable to register event handler for class %s", data.getClassName()));
             }
         }
-
-        registerItemModel(ItemSchematicGenerator.class, 0, "normal");
         registerRenders();
     }
 
@@ -53,8 +50,8 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void registerRenders() {
-        ModItems.registerRenders();
-        ModBlocks.registerRenders();
+        ModItems.getInstance().registerRenders();
+        ModBlocks.getInstance().registerRenders();
     }
 
     public static void registerBlockModel(Class<? extends Block> blockClass, int meta, String variant) {

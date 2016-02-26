@@ -1,5 +1,6 @@
 package tombenpotter.deepmagics.registry;
 
+import lombok.Getter;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
@@ -8,15 +9,23 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import tombenpotter.deepmagics.DeepMagics;
 import tombenpotter.deepmagics.api.Constants;
 import tombenpotter.deepmagics.repack.tehnut.lib.annot.ModBlock;
+import tombenpotter.deepmagics.util.IRegistry;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ModBlocks {
+public class ModBlocks implements IRegistry {
+
+    @Getter
+    private static ModBlocks instance = new ModBlocks();
 
     private static Map<Class<? extends Block>, String> classToName = new HashMap<Class<? extends Block>, String>();
 
-    public static void init() {
+    private ModBlocks() {
+    }
+
+    @Override
+    public void init() {
         for (ASMDataTable.ASMData data : DeepMagics.instance.getModBlocks()) {
             try {
                 Class<?> asmClass = Class.forName(data.getClassName());
@@ -37,6 +46,9 @@ public class ModBlocks {
         }
     }
 
+    public void registerRenders() {
+    }
+
     public static Block getBlock(String name) {
         return GameRegistry.findBlock(Constants.Mod.MODID, name);
     }
@@ -47,8 +59,5 @@ public class ModBlocks {
 
     public static String getName(Class<? extends Block> blockClass) {
         return classToName.get(blockClass);
-    }
-
-    public static void registerRenders() {
     }
 }

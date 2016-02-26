@@ -1,8 +1,8 @@
-package tombenpotter.deepmagics.api.world;
+package tombenpotter.deepmagics.api.structure;
 
 import net.minecraft.world.World;
 import tombenpotter.deepmagics.api.Constants;
-import tombenpotter.deepmagics.api.DMBlockPos;
+import tombenpotter.deepmagics.api.world.DMBlockPos;
 
 public enum EnumGenerationType {
     SURFACE {

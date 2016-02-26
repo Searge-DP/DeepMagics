@@ -14,6 +14,10 @@ import tombenpotter.deepmagics.api.Constants;
 import tombenpotter.deepmagics.api.DeepMagicsAPI;
 import tombenpotter.deepmagics.api.util.LogHelper;
 import tombenpotter.deepmagics.proxy.CommonProxy;
+import tombenpotter.deepmagics.registry.ModBlocks;
+import tombenpotter.deepmagics.registry.ModItems;
+import tombenpotter.deepmagics.registry.ModRecipes;
+import tombenpotter.deepmagics.registry.ModStructures;
 import tombenpotter.deepmagics.repack.tehnut.lib.annot.Handler;
 import tombenpotter.deepmagics.repack.tehnut.lib.annot.ModBlock;
 import tombenpotter.deepmagics.repack.tehnut.lib.annot.ModItem;
@@ -50,10 +54,16 @@ public class DeepMagics {
     public void preInit(FMLPreInitializationEvent event) {
         configDirectory = new File(event.getModConfigurationDirectory(), Constants.Mod.MODID);
         DeepMagicsAPI.setConfigurationDirectory(new File(event.getModConfigurationDirectory(), Constants.Mod.MODID));
+        ConfigHandler.init(new File(getConfigDirectory(), Constants.Mod.MODID + ".cfg"));
 
         modItems = event.getAsmData().getAll(ModItem.class.getCanonicalName());
         modBlocks = event.getAsmData().getAll(ModBlock.class.getCanonicalName());
         eventHandlers = event.getAsmData().getAll(Handler.class.getCanonicalName());
+
+        ModItems.getInstance().init();
+        ModBlocks.getInstance().init();
+        ModRecipes.getInstance().init();
+        ModStructures.getInstance().init();
 
         proxy.preInit(event);
     }

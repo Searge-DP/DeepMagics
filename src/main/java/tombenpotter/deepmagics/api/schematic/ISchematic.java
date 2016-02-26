@@ -5,9 +5,18 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
 import tombenpotter.deepmagics.api.world.Area;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface ISchematic {
+
+    public short getWidth();
+    public short getHeight();
+    public short getLength();
+    public short getHorizon();
+    public byte[] getData();
+    public HashMap<BlockPos, NBTTagCompound> getTiles();
+    public int getAreaBlockCount();
 
     /**
      * Gets the block at the specified coordinates, ranging from 0 to the width (x), height (y) and length (z).

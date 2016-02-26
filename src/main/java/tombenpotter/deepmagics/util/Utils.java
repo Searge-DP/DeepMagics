@@ -3,6 +3,9 @@ package tombenpotter.deepmagics.util;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.ChunkCoordIntPair;
+import org.apache.commons.lang3.math.NumberUtils;
+import tombenpotter.deepmagics.api.Constants;
 
 import javax.annotation.Nonnull;
 import java.io.FileNotFoundException;
@@ -35,5 +38,15 @@ public class Utils {
         }
 
         return stack.getTagCompound();
+    }
+
+    public static ChunkCoordIntPair chunkCoordIntPairFromString(String s) {
+        if (!s.contains("[") || !s.contains("]") || !s.contains(",")) {
+            return Constants.Misc.NO_CHUNK_COORD;
+        }
+        s = s.substring(1);
+        s = s.substring(0, s.length() - 1);
+        String[] coords = s.split(",");
+        return new ChunkCoordIntPair(NumberUtils.createInteger(coords[0]), NumberUtils.createInteger(coords[1]));
     }
 }

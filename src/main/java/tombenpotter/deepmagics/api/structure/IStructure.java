@@ -1,9 +1,9 @@
-package tombenpotter.deepmagics.api.world;
+package tombenpotter.deepmagics.api.structure;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
-import tombenpotter.deepmagics.api.DMBlockPos;
+import tombenpotter.deepmagics.api.world.DMBlockPos;
 
 public interface IStructure {
 

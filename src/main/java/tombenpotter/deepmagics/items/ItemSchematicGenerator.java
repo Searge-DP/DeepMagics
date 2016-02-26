@@ -29,18 +29,24 @@ public class ItemSchematicGenerator extends Item {
         if (!world.isRemote) {
             NBTTagCompound tag = Utils.checkNBT(stack);
 
-            if (player.isSneaking()) {
-                tag.setInteger(Constants.NBT.START_X, pos.getX());
-                tag.setInteger(Constants.NBT.START_Y, pos.getY());
-                tag.setInteger(Constants.NBT.START_Z, pos.getZ());
+            if (!player.isSneaking()) {
+                NBTTagCompound startTag = new NBTTagCompound();
+                startTag.setInteger(Constants.NBT.START_X, pos.getX());
+                startTag.setInteger(Constants.NBT.START_Y, pos.getY());
+                startTag.setInteger(Constants.NBT.START_Z, pos.getZ());
+                tag.setTag(Constants.NBT.START_AREA_TAG, startTag);
             } else {
-                tag.setInteger(Constants.NBT.END_X, pos.getX());
-                tag.setInteger(Constants.NBT.END_Y, pos.getY());
-                tag.setInteger(Constants.NBT.END_Z, pos.getZ());
+                NBTTagCompound endTag = new NBTTagCompound();
+                endTag.setInteger(Constants.NBT.END_X, pos.getX());
+                endTag.setInteger(Constants.NBT.END_Y, pos.getY());
+                endTag.setInteger(Constants.NBT.END_Z, pos.getZ());
+                tag.setTag(Constants.NBT.END_AREA_TAG, endTag);
             }
 
-            player.addChatComponentMessage(new ChatComponentText("Position 1: (X " + tag.getInteger(Constants.NBT.START_X) + " | Y " + tag.getInteger(Constants.NBT.START_Y) + " | Z " + tag.getInteger(Constants.NBT.START_Z) + ")"));
-            player.addChatComponentMessage(new ChatComponentText("Position 2: (X " + tag.getInteger(Constants.NBT.END_X) + " | Y " + tag.getInteger(Constants.NBT.END_Y) + " | Z " + tag.getInteger(Constants.NBT.END_Z) + ")"));
+            NBTTagCompound startTag = tag.getCompoundTag(Constants.NBT.START_AREA_TAG);
+            NBTTagCompound endTag = tag.getCompoundTag(Constants.NBT.END_AREA_TAG);
+            player.addChatComponentMessage(new ChatComponentText("Position 1: (X " + startTag.getInteger(Constants.NBT.START_X) + " | Y " + startTag.getInteger(Constants.NBT.START_Y) + " | Z " + startTag.getInteger(Constants.NBT.START_Z) + ")"));
+            player.addChatComponentMessage(new ChatComponentText("Position 2: (X " + endTag.getInteger(Constants.NBT.END_X) + " | Y " + endTag.getInteger(Constants.NBT.END_Y) + " | Z " + endTag.getInteger(Constants.NBT.END_Z) + ")"));
         }
         return true;
     }
@@ -48,7 +54,7 @@ public class ItemSchematicGenerator extends Item {
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
         if (!world.isRemote && stack.getTagCompound() != null) {
-            Area area = new Area(stack.getTagCompound().getInteger(Constants.NBT.START_X), stack.getTagCompound().getInteger(Constants.NBT.START_Y), stack.getTagCompound().getInteger(Constants.NBT.START_Z), stack.getTagCompound().getInteger(Constants.NBT.END_X), stack.getTagCompound().getInteger(Constants.NBT.END_Y), stack.getTagCompound().getInteger(Constants.NBT.END_Z));
+            Area area = Area.getAreaFromNBT(stack.getTagCompound());
             SchematicHelper.INSTANCE.createModSchematic(world, area, (short) 0, "NewSchematic - " + player.getName());
             player.addChatComponentMessage(new ChatComponentText("Created new schematic with a block size of (" + area.getBlockCount() + ")"));
         }
